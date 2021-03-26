@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.forms.models import model_to_dict
 from django.contrib.auth import authenticate
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import *
 from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import django_filters.rest_framework
+
 
 
 def get_tokens_for_user(user):
@@ -71,4 +73,11 @@ class LoginView(APIView):
             }
         }
         return Response(user_data, status=status.HTTP_200_OK)
+
+class JobListingViewset(viewsets.ModelViewSet):
+    model = job_listing
+    serializer_class = JobListingSerializer
+    queryset = job_listing.objects.all()
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('job_title', )
         

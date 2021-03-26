@@ -53,3 +53,11 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+class job_listing(models.Model):
+    job_title = models.CharField(max_length=255, null=True, blank=True)
+    job_description = models.TextField(null=True, blank=True)
+    job_url = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return self.job_title

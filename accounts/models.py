@@ -55,9 +55,17 @@ class CustomUser(AbstractUser):
         return self.email
 
 class job_listing(models.Model):
+    job_topic = models.CharField(max_length=255, null=True, blank=True)
+    company_name = models.CharField(max_length=255, null=True, blank=True)
+    job_requirements = models.TextField(blank=True, null=True)
     job_title = models.CharField(max_length=255, null=True, blank=True)
     job_description = models.TextField(null=True, blank=True)
-    job_url = models.CharField(max_length=255, null=True, blank=True)
+    job_location = models.TextField(blank=True, null=True)
+    job_salary = models.CharField(max_length=255, blank=True, null=True)
+    job_qualification = models.CharField(max_length=255, blank=True, null=True)
+    job_type = models.CharField(max_length=255, null=True, blank=True)
+    job_experience = models.CharField(max_length=255, null=True, blank=True)
+    job_link = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.job_title

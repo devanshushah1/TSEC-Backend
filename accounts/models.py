@@ -17,6 +17,12 @@ class CustomUserManager(BaseUserManager):
         user.set_password(password)
         user.save()
         return user
+    
+    def create_employer(self, email, password, **extra_fields):
+        user = self.create_user(email, password)
+        user.is_employer = True
+        user.save()
+        return user
 
     def create_superuser(self, email, password, **extra_fields):
         """
@@ -34,8 +40,10 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractUser):
     username = None
+    is_employer = models.BooleanField(default=False)
     email = models.EmailField(max_length=255, unique=True)
     phone_number = models.CharField(max_length=13, null=True, blank=True)
+    company_name = models.CharField(max_length=255, null=True, blank=True)
     
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'

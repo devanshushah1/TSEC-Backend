@@ -101,5 +101,3 @@ class PracticeInterviewViewset(viewsets.ModelViewSet):
     queryset = PracticeInterview.objects.all()
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('question', 'user', 'share_it',)
-
-

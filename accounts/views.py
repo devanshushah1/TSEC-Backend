@@ -92,7 +92,7 @@ class JobListingViewset(viewsets.ModelViewSet):
     model = JobListings
     serializer_class = JobListingSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filterset_fields = ('job_title', 'job_topic',)
+    filterset_fields = ('job_title', 'job_topic', 'category',)
 
     def get_queryset(self, *args, **kwargs):
         query_params = self.request.query_params

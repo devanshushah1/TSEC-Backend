@@ -43,13 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #local
+    # local
     'accounts',
 
-    #3rd party
+    # 3rd party
     'rest_framework',
     'corsheaders',
     'django_filters',
+    'import_export',
 ]
 
 MIDDLEWARE = [

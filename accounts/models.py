@@ -54,18 +54,20 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
-class job_listing(models.Model):
-    job_topic = models.CharField(max_length=255, null=True, blank=True)
-    company_name = models.CharField(max_length=255, null=True, blank=True)
-    job_requirements = models.TextField(blank=True, null=True)
-    job_title = models.CharField(max_length=255, null=True, blank=True)
-    job_description = models.TextField(null=True, blank=True)
-    job_location = models.TextField(blank=True, null=True)
-    job_salary = models.CharField(max_length=255, blank=True, null=True)
-    job_qualification = models.CharField(max_length=255, blank=True, null=True)
-    job_type = models.CharField(max_length=255, null=True, blank=True)
-    job_experience = models.CharField(max_length=255, null=True, blank=True)
-    job_link = models.CharField(max_length=255, null=True, blank=True)
+class JobListings(models.Model):
+    id = models.AutoField(primary_key=True)
+    job_id = models.CharField(max_length=1000,default='N/A')
+    job_topic = models.CharField(max_length=1000,default='N/A')
+    company_name = models.CharField(max_length=100,default='N/A')
+    job_link = models.CharField(max_length=1000,default='N/A')
+    job_title = models.CharField(max_length=1000,default='N/A')
+    job_description = models.CharField(max_length=5000,default='N/A')
+    job_requirements = models.CharField(max_length=1000,default='N/A')
+    job_location = models.CharField(max_length=1000,default='N/A')
+    job_salary = models.CharField(max_length=1000,default='N/A')
+    job_qualification = models.CharField(max_length=1000,default='N/A')
+    job_type = models.CharField(max_length=1000,default='N/A')
+    job_experience = models.CharField(max_length=1000,default='N/A')
 
     def __str__(self):
-        return self.job_title
+        return str(self.id)

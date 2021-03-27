@@ -1,3 +1,5 @@
+
+import django
 from django.shortcuts import render
 from django.forms.models import model_to_dict
 from django.contrib.auth import authenticate
@@ -10,15 +12,16 @@ from rest_framework.response import Response
 import django_filters.rest_framework
 
 
-
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
     return {
-        'refresh' : str(refresh),
-        'access' : str(refresh.access_token),
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
     }
 
 # Create your views here.
+
+
 class SignupEmployee(APIView):
     def post(self, request):
         password = request.data.get('password')
@@ -35,7 +38,7 @@ class SignupEmployee(APIView):
         data['phone_number'] = phone_number
         return Response(data, status=status.HTTP_201_CREATED)
 
-        
+
 class SignupCompany(APIView):
     def post(self, request):
         password = request.data.get('password')
@@ -51,6 +54,7 @@ class SignupCompany(APIView):
         data['email'] = email
         data['phone_number'] = phone_number
         return Response(data, status=status.HTTP_201_CREATED)
+
 
 class LoginView(APIView):
     def post(self, request):
@@ -74,10 +78,10 @@ class LoginView(APIView):
         }
         return Response(user_data, status=status.HTTP_200_OK)
 
+
 class JobListingViewset(viewsets.ModelViewSet):
-    model = job_listing
+    model = JobListings
     serializer_class = JobListingSerializer
-    queryset = job_listing.objects.all()
+    queryset = JobListings.objects.all()
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('job_title', )
-        

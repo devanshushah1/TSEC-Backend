@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register(r'joblisting', views.JobListingViewset)
+router.register(r'joblisting', views.JobListingViewset, basename="JobListing")
 router.register(r'interview-questions', views.InterviewQuestionsViewset)
 router.register(r'practice-interview', views.PracticeInterviewViewset)
 

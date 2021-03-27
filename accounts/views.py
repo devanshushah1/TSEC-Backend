@@ -94,7 +94,6 @@ class JobListingViewset(viewsets.ModelViewSet):
             return JobListings.objects.all()[:100]
 
 
-
 class InterviewQuestionsViewset(viewsets.ModelViewSet):
     model = InterviewQuestions
     serializer_class = InterviewQuestionsSerializer
@@ -109,4 +108,3 @@ class PracticeInterviewViewset(viewsets.ModelViewSet):
     queryset = PracticeInterview.objects.all()
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('question', 'user', 'share_it',)
-

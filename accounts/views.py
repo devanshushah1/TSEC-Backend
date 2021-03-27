@@ -78,13 +78,21 @@ class LoginView(APIView):
         }
         return Response(user_data, status=status.HTTP_200_OK)
 
+# class CustomUserView()
+
 
 class JobListingViewset(viewsets.ModelViewSet):
     model = JobListings
     serializer_class = JobListingSerializer
-    queryset = JobListings.objects.all()
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filterset_fields = ('job_title', )
+    filterset_fields = ('job_title', 'job_topic',)
+
+    def get_queryset(self, *args, **kwargs):
+        if "pk" in self.kwargs:
+            return JobListings.objects.all()
+        else:
+            return JobListings.objects.all()[:100]
+
 
 
 class InterviewQuestionsViewset(viewsets.ModelViewSet):
@@ -101,5 +109,4 @@ class PracticeInterviewViewset(viewsets.ModelViewSet):
     queryset = PracticeInterview.objects.all()
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('question', 'user', 'share_it',)
-
 

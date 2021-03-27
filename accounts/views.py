@@ -156,3 +156,11 @@ class CompanyQuestionViewset(viewsets.ModelViewSet):
     queryset = CompanyQuestion.objects.all()
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('company', )
+
+
+class CompanyViewset(viewsets.ModelViewSet):
+    model = Company
+    serializer_class = CompanySerializer
+    queryset = Company.objects.all()
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('name', )

@@ -93,13 +93,13 @@ class JobListingViewset(viewsets.ModelViewSet):
     serializer_class = JobListingSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('job_title', 'job_topic', 'category',)
-
-    def get_queryset(self, *args, **kwargs):
-        query_params = self.request.query_params
-        if "pk" in self.kwargs:
-            return JobListings.objects.all()
-        else:
-            return JobListings.objects.all()[:100]
+    queryset = JobListings.objects.all()
+    # def get_queryset(self, *args, **kwargs):
+    #     query_params = self.request.query_params
+    #     if "pk" in self.kwargs:
+    #         return JobListings.objects.all()
+    #     else:
+    #         return JobListings.objects.all()[:100]
 
 
 class InterviewQuestionsViewset(viewsets.ModelViewSet):
@@ -136,7 +136,8 @@ class EmotionAnalysis(APIView):
         user = self.request.user
         question = self.request.query_params.get('question')
 
-        p = PracticeInterview.objects.filter(user=user, question=question).first()
+        p = PracticeInterview.objects.filter(
+            user=user, question=question).first()
         vid = p.video_upload.url
         print('*******************************************************', vid)
         two_up = os.path.dirname(os.path.dirname(__file__))
@@ -147,3 +148,11 @@ class EmotionAnalysis(APIView):
         p.save()
 
         return Response(emotion_dict, status=status.HTTP_200_OK)
+
+
+class CompanyQuestionViewset(viewsets.ModelViewSet):
+    model = CompanyQuestion
+    serializer_class = CompanyQuestionSerializer
+    queryset = CompanyQuestion.objects.all()
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('company', )

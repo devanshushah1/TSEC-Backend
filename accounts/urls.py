@@ -7,6 +7,8 @@ router = DefaultRouter()
 router.register(r'joblisting', views.JobListingViewset, basename="JobListing")
 router.register(r'interview-questions', views.InterviewQuestionsViewset)
 router.register(r'practice-interview', views.PracticeInterviewViewset)
+router.register(r'company-question', views.CompanyQuestionViewset)
+
 
 urlpatterns = [
     path('', include(router.urls)),

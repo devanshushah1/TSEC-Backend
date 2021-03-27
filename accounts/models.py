@@ -112,7 +112,19 @@ class PracticeInterview(models.Model):
     share_it = models.BooleanField(default=False)
 
 
-def job_post():
-    for x in JobListings.objects.all():
-        x.category = Category.objects.get(category=x.job_topic)
-        x.save()
+class Company(models.Model):
+    name = models.CharField(max_length=255, blank=True, null=True)
+    image = models.ImageField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class CompanyQuestion(models.Model):
+    company = models.ForeignKey(
+        Company, blank=True, null=True, on_delete=models.CASCADE)
+    question = models.TextField(blank=True, null=True)
+    answer = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.company)

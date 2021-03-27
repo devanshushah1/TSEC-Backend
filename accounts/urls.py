@@ -13,4 +13,5 @@ urlpatterns = [
     path('signup/employee', views.SignupEmployee.as_view(), name='signup'),
     path('signup/company', views.SignupCompany.as_view(), name='signup'),
     path('login/', views.LoginView.as_view(), name='login'),
+    path('category/', views.CategoryView.as_view(), name='category'),
 ]

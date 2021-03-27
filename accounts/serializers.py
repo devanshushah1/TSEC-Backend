@@ -7,8 +7,14 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('__all__')
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('__all__')
+
 
 class JobListingSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
     class Meta:
         model = JobListings
         fields = ('__all__')

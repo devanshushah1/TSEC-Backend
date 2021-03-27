@@ -15,8 +15,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class JobListingSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()
-
+    
     class Meta:
         model = JobListings
         fields = ('__all__')

@@ -110,3 +110,9 @@ class PracticeInterview(models.Model):
     user = models.ForeignKey(CustomUser, null=True,
                              blank=True, on_delete=models.CASCADE)
     share_it = models.BooleanField(default=False)
+
+
+def job_post():
+    for x in JobListings.objects.all():
+        x.category = Category.objects.get(category=x.job_topic)
+        x.save()

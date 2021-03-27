@@ -10,17 +10,16 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import os
 from tensorflow.keras.models import load_model
 
-
-def emotion():
+def func(xpath):
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", help="train/display")
-    mode = ap.parse_args().mode
+    # mode = ap.parse_args().mode
 
     model = Sequential()
 
     model.add(Conv2D(32, kernel_size=(3, 3),
-                     activation='relu', input_shape=(48, 48, 1)))
+                        activation='relu', input_shape=(48, 48, 1)))
     model.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
@@ -35,12 +34,15 @@ def emotion():
     model.add(Dense(1024, activation='relu'))
     model.add(Dropout(0.5))
     model.add(Dense(7, activation='softmax'))
-    model.load_weights('emotion.h5')
+    # print('============================================', os.path.dirname(os.path.realpath(__file__)))
+    pp = os.path.dirname(os.path.realpath(__file__)) + '\emotion.h5'
+    # print('================================================', pp)
+    model.load_weights(pp)
 
     cv2.ocl.setUseOpenCL(False)
 
     emotion = {0: "Angry", 1: "Disgusted", 2: "Fearful",
-               3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
+                3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
 
     def FrameCapture(path):
         counter = {
@@ -65,10 +67,12 @@ def emotion():
             # vidObj object calls read
             # function extract frames
             success, frame = vidObj.read()
+            print(frame)
             # Saves the frames with frame-count
             if not success:
                 break
-            face = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+            ppp = os.path.dirname(os.path.realpath(__file__)) + '\haarcascade_frontalface_default.xml'
+            face = cv2.CascadeClassifier(ppp)
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             finalface = face.detectMultiScale(
                 gray, scaleFactor=1.3, minNeighbors=5)
@@ -85,8 +89,5 @@ def emotion():
                 print(123)
 
         return counter
-
-    print(FrameCapture('WIN_20210327_15_45_31_Pro.mp4'))
-
-
-emotion()
+    abc = FrameCapture(xpath)
+    return abc

@@ -1,5 +1,6 @@
 
 import django
+import os
 from django.shortcuts import render
 from django.forms.models import model_to_dict
 from django.contrib.auth import authenticate
@@ -7,6 +8,7 @@ from rest_framework import generics, status, viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import *
 from .serializers import *
+from .emotion import func
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import django_filters.rest_framework
@@ -127,3 +129,21 @@ class PracticeInterviewViewset(viewsets.ModelViewSet):
             return Response({'success': 'Created Successfully'}, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EmotionAnalysis(APIView):
+    def get(self, *args, **kwargs):
+        user = self.request.user
+        question = self.request.query_params.get('question')
+
+        p = PracticeInterview.objects.filter(user=user, question=question).first()
+        vid = p.video_upload.url
+        print('*******************************************************', vid)
+        two_up = os.path.dirname(os.path.dirname(__file__))
+        print(two_up)
+        pp = two_up + str(vid)
+        emotion_dict = func(pp)
+        p.emotion = str(emotion_dict)
+        p.save()
+
+        return Response(emotion_dict, status=status.HTTP_200_OK)

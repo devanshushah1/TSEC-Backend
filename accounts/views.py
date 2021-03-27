@@ -85,3 +85,21 @@ class JobListingViewset(viewsets.ModelViewSet):
     queryset = JobListings.objects.all()
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('job_title', )
+
+
+class InterviewQuestionsViewset(viewsets.ModelViewSet):
+    model = InterviewQuestions
+    serializer_class = InterviewQuestionsSerializer
+    queryset = InterviewQuestions.objects.all()
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('category', )
+
+
+class PracticeInterviewViewset(viewsets.ModelViewSet):
+    model = PracticeInterview
+    serializer_class = PracticeInterviewSerializer
+    queryset = PracticeInterview.objects.all()
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filterset_fields = ('question', 'user', 'share_it',)
+
+

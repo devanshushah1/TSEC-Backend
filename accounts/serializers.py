@@ -12,3 +12,13 @@ class JobListingSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobListings
         fields = ('__all__')
+
+class InterviewQuestionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InterviewQuestions
+        fields = ('__all__')
+
+class PracticeInterviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PracticeInterview
+        fields = ('__all__')

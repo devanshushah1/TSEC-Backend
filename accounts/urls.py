@@ -5,6 +5,8 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'joblisting', views.JobListingViewset)
+router.register(r'interview-questions', views.InterviewQuestionsViewset)
+router.register(r'practice-interview', views.PracticeInterviewViewset)
 
 urlpatterns = [
     path('', include(router.urls)),

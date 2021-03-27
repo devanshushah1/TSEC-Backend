@@ -71,3 +71,23 @@ class JobListings(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+class InterviewQuestions(models.Model):
+    CATEGORIES = [
+        ('General', 'General'),
+        ('Marketing', 'Marketing'),
+        ('Business', 'Business'),
+        ('Tech', 'Tech')
+    ]
+    category = models.CharField(max_length=255, null=True, blank=True, choices=CATEGORIES)
+    question_text = models.CharField(max_length=255)
+    recommended_answer = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.question_text
+
+class PracticeInterview(models.Model):
+    video_upload = models.FileField(blank=True, null=True)
+    question = models.ForeignKey(InterviewQuestions, null=True, blank=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, null=True, blank=True, on_delete=models.CASCADE)
+    share_it = models.BooleanField(default=False)

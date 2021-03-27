@@ -11,3 +11,5 @@ class JobListingsAdmin(ImportExportModelAdmin):
 
 admin.site.register(JobListings, JobListingsAdmin)
 admin.site.register(CustomUser)
+admin.site.register(InterviewQuestions)
+admin.site.register(PracticeInterview)

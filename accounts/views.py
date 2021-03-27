@@ -93,13 +93,19 @@ class JobListingViewset(viewsets.ModelViewSet):
     serializer_class = JobListingSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filterset_fields = ('job_title', 'job_topic', 'category',)
-    queryset = JobListings.objects.all()
-    # def get_queryset(self, *args, **kwargs):
-    #     query_params = self.request.query_params
-    #     if "pk" in self.kwargs:
-    #         return JobListings.objects.all()
-    #     else:
-    #         return JobListings.objects.all()[:100]
+    # queryset = JobListings.objects.all()
+    def get_queryset(self, *args, **kwargs):
+        ab = ["Digital Marketing", "web developer", "Data scientist"]
+        reqd_ids = []
+        for i in ab:
+            counter = 0;
+            x = JobListings.objects.filter(job_topic=i).values('id')
+            for a in x:
+                reqd_ids.append(a['id'])
+                counter+=1
+                if counter>20:
+                    break
+        return JobListings.objects.filter(id__in=reqd_ids)
 
 
 class InterviewQuestionsViewset(viewsets.ModelViewSet):

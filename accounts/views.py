@@ -131,8 +131,13 @@ class PracticeInterviewViewset(viewsets.ModelViewSet):
             prac.user = request.user
             prac.save()
             # x = model_to_dict(prac)
+            vid = prac.video_upload.url
+            two_up = os.path.dirname(os.path.dirname(__file__))
+            print(two_up)
+            pp = two_up + str(vid)
+            emotion_dict = func(pp)
 
-            return Response({'success': 'Created Successfully'}, status=status.HTTP_201_CREATED)
+            return Response(emotion_dict, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

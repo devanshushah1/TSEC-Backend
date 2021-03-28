@@ -128,7 +128,7 @@ class PracticeInterviewViewset(viewsets.ModelViewSet):
         serializer = self.serializer_class(data=data)
         if serializer.is_valid():
             prac = serializer.save()
-            prac.user = request.user
+            # prac.user = request.user
             prac.save()
             # x = model_to_dict(prac)
             vid = prac.video_upload.url
